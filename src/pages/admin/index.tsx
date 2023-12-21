@@ -1,6 +1,6 @@
 import memory from "../../util/memory";
 import { useNavigate } from "react-router-dom";
-import './index.less';
+import './index.css';
 import { useEffect } from "react";
 
 const Admin = () => {

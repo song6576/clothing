@@ -1,0 +1,67 @@
+.content {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, .7);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+.login-box {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  background: rgba(12, 180, 231, .6);
+  backdrop-filter: blur(10px);
+  border-radius: 30px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  h1 {
+    color: white;
+    margin: 50px 0 10px 0;
+    font-size: 36px;
+  }
+  .output-form {
+    margin-top: 20px;
+    width: 300px;
+    height: 40px;
+    display: flex;
+  }
+}
+.register {
+  cursor: pointer;
+  padding-left: 40px;
+  color: antiquewhite;
+  opacity: .7;
+}
+.block {
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  cursor: pointer;
+  color: antiquewhite;
+  opacity: .7;
+}
+/* .content::before {
+  position: absolute;
+  content: "";
+  display: block;
+  width: 300%;
+  height: 100%;
+  background-image: linear-gradient(to bottom right,rgb(25,0,255),rgb(111,0,255),rgb(242,0,250));
+  filter: blur(4px);
+  animation: bg-anim 3s alternate infinite linear;
+} */
+
+@keyframes bg-anim {
+  from {
+    left: 0;
+  }
+  to {
+    left: -200%;
+  }
+}

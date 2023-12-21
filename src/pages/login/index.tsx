@@ -1,6 +1,6 @@
 import { Button, Form, Input, message } from 'antd';
 import { useState } from 'react';
-import './index.less';
+import './index.css';
 import { reqAddUser, reqLogin } from '../../api/login';
 import memory from '../../util/memory';
 import storage from '../../util/storage';
@@ -43,11 +43,8 @@ const Login = () => {
 
   return (
     <div className='content'>
-      <div className='header'>
-        <h3>欢迎来到服装分类管理系统</h3>
-      </div>
       <div className='login-box'>
-        <h1>登录</h1>
+        <h1>服装管理系统</h1>
         <div className='output-form'>
           {
             isLogin ? <div className="flex flex-col flex-ai">
@@ -76,12 +73,12 @@ const Login = () => {
                   <Input.Password />
                 </Form.Item>
                 <Form.Item wrapperCol={{ offset: 4, span: 20 }}>
-                  <Button type="primary" htmlType="submit" style={{ marginTop: '20px', width: '100%' }}>
+                  <Button type="primary" htmlType="submit" style={{ marginTop: '20px', width: '100%',background: 'rgb(12 180 231)' }}>
                     登录
                   </Button>
                 </Form.Item>
               </Form>
-              <div className='register' onClick={() => setIsLogin(false)}>创建账号</div>
+              <div className='register' onClick={() => setIsLogin(false)}>注册</div>
             </div> : <div className=''>
               <Form
                 name="basic"
