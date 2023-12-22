@@ -50,8 +50,6 @@ const Login = () => {
             isLogin ? <div className="flex flex-col flex-ai">
               <Form
                 name="basic"
-                labelCol={{ span: 8 }}
-                wrapperCol={{ span: 16 }}
                 initialValues={{ remember: true }}
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
@@ -72,8 +70,8 @@ const Login = () => {
                 >
                   <Input.Password />
                 </Form.Item>
-                <Form.Item wrapperCol={{ offset: 4, span: 20 }}>
-                  <Button type="primary" htmlType="submit" style={{ marginTop: '20px', width: '100%',background: 'rgb(12 180 231)' }}>
+                <Form.Item>
+                  <Button type="primary" htmlType="submit" style={{ marginTop: '10px', width: '100%',background: 'rgb(12 180 231)' }}>
                     登录
                   </Button>
                 </Form.Item>
@@ -82,8 +80,6 @@ const Login = () => {
             </div> : <div className=''>
               <Form
                 name="basic"
-                labelCol={{ span: 8 }}
-                wrapperCol={{ span: 16 }}
                 initialValues={{ remember: true }}
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
@@ -111,8 +107,8 @@ const Login = () => {
                 >
                   <Input />
                 </Form.Item>
-                <Form.Item wrapperCol={{ offset: 4, span: 20 }}>
-                  <Button type="primary" htmlType="submit" style={{ marginTop: '20px', width: '100%' }}>
+                <Form.Item>
+                  <Button type="primary" htmlType="submit" style={{ marginTop: '10px', width: '100%' }}>
                     注册
                   </Button>
                 </Form.Item>
