@@ -12,18 +12,18 @@ const BASE = ''
 * 登录模块,后端未处理好，这里需要传递参数，拼接
 */
 export const reqLogin = (username: any, password: any) => {
-  const url = `${BASE}/login?username=${username}&password=${password}`;
-  return axios.get(url)
-    .then(response => {
-      // 处理请求成功的响应
-      return response.data;
-    })
-    .catch(error => {
-      // 处理请求失败的错误
-      // 可以使用 message.error() 方法展示错误消息
-      message.error('请求失败，请重试！');
-      throw error;
-    });
+    const url = `${BASE}/login?username=${username}&password=${password}`;
+    return axios.get(url)
+        .then(response => {
+            // 处理请求成功的响应
+            return response.data;
+        })
+        .catch(error => {
+            // 处理请求失败的错误
+            // 可以使用 message.error() 方法展示错误消息
+            message.error('请求失败，请重试！');
+            throw error;
+        });
 }
 
 /**
@@ -36,47 +36,47 @@ export const reqRegister = (username: any, password: any) => axios(BASE + `/regi
  */
 
 export const reqWeather = (city: any) => {
-  return new Promise((resolve, reject) => {
-    const url = `https://restapi.amap.com/v3/weather/weatherInfo?city=${city}&key=912f3a1404ef35b2e6a570ef9f217371`
-    // 发送jsonp请求
-    jsonp(url, {}, (err:any, data:any) => {
-      // console.log(err,data)
-      if (!err && data.status === '1') {
-        // 取出需要的数据
-        const { weather, temperature, city } = data.lives[0]
-        resolve({ weather, temperature, city })
-      } else {
-        // 失败了
-        message.error('获取天气失败')
-      }
+    return new Promise((resolve, reject) => {
+        const url = `https://restapi.amap.com/v3/weather/weatherInfo?city=${city}&key=912f3a1404ef35b2e6a570ef9f217371`
+        // 发送jsonp请求
+        jsonp(url, {}, (err: any, data: any) => {
+            // console.log(err,data)
+            if (!err && data.status === '1') {
+                // 取出需要的数据
+                const { weather, temperature, city } = data.lives[0]
+                resolve({ weather, temperature, city })
+            } else {
+                // 失败了
+                message.error('获取天气失败')
+            }
+        })
     })
-  })
 }
 
 /**
  * 获取所有地区
  */
 export const reqRegionList = () => {
-  return new Promise((resolve, reject) => {
-    const url = `https://restapi.amap.com/v3/config/district?key=912f3a1404ef35b2e6a570ef9f217371&subdistrict=3&extensions=base`
-    // 发送jsonp请求
-    jsonp(url, {}, (err:any, data:any) => {
-      // console.log(err,data)
-      if (!err && data.status === '1') {
-        // 取出需要的数据
-        const { districts } = data.districts[0]
-        resolve({ districts })
-      } else {
-        // 失败了
-        message.error('获取地区失败')
-      }
+    return new Promise((resolve, reject) => {
+        const url = `https://restapi.amap.com/v3/config/district?key=912f3a1404ef35b2e6a570ef9f217371&subdistrict=3&extensions=base`
+        // 发送jsonp请求
+        jsonp(url, {}, (err: any, data: any) => {
+            // console.log(err,data)
+            if (!err && data.status === '1') {
+                // 取出需要的数据
+                const { districts } = data.districts[0]
+                resolve({ districts })
+            } else {
+                // 失败了
+                message.error('获取地区失败')
+            }
+        })
     })
-  })
 }
 /**
 * 查询系统用户模块
 */
-export const reqUsers = () => axios(BASE + '/user')
+export const reqUsers = () => axios.post(BASE + '/user')
 
 /**
  * 添加系统用户模块
