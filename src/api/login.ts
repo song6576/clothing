@@ -76,7 +76,20 @@ export const reqRegionList = () => {
 /**
 * 查询系统用户模块
 */
-export const reqUsers = () => axios.post(BASE + '/user')
+export const reqUsers = () => {
+    const url = `${BASE}/user`;
+    return axios.get(url)
+        .then(response => {
+            // 处理请求成功的响应
+            return response.data;
+        })
+        .catch(error => {
+            // 处理请求失败的错误
+            // 可以使用 message.error() 方法展示错误消息
+            message.error('请求失败，请重试！');
+            throw error;
+        });
+}
 
 /**
  * 添加系统用户模块

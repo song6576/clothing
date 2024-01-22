@@ -1,5 +1,6 @@
 import memory from "../../util/memory";
-import { useNavigate,Routes, Route, Outlet } from "react-router-dom";
+import storage from "../../util/storage";
+import { useNavigate, Routes, Route, Outlet } from "react-router-dom";
 import './index.css';
 import { useEffect, useState } from "react";
 import {
@@ -13,7 +14,9 @@ import React from "react";
 import { Breadcrumb, Layout, Menu, MenuProps, theme } from 'antd';
 import LeftNav from "../../component/left-nav";
 import Home from "../Home";
-import User from "../User";
+import User from "../user";
+import Order from '../order';
+import bus from "../../util/bus";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -47,20 +50,22 @@ const items: MenuItem[] = [
 
 const Admin = () => {
     const user: any = memory.user;
-    console.log("🚀 ~ file: index.tsx:47 ~ Admin ~ user:", user)
     const navigate = useNavigate();
     const [collapsed, setCollapsed] = useState(false);
+    const [path, setPath] = useState('/user'); // 存储路由
     const {
         token: { colorBgContainer, borderRadiusLG },
     } = theme.useToken();
     // 路由重定向到登陆页面
     useEffect(() => {
-        if (!user.username) return navigate('/login');
+        if (!user) return navigate('/login');
+        bus.$on('path', (path: any) => {
+            setPath(path)
+        })
     }, [])
 
     const menuClick = (e: any) => {
         console.log("🚀 ~ file: index.tsx:59 ~ menuClick ~ a,b,c:", e)
-
     }
     return (
         <React.Fragment>
@@ -72,16 +77,34 @@ const Admin = () => {
                 <Layout>
                     <Header style={{ padding: 0, background: colorBgContainer }}>
                         <Breadcrumb style={{ margin: '16px 15px' }}>
-                            <Breadcrumb.Item>User</Breadcrumb.Item>
-                            <Breadcrumb.Item>Bill</Breadcrumb.Item>
+                            <Breadcrumb.Item>
+                                {path === '/user' && '角色管理'}
+                                {path === '/order' && '订单管理'}
+                                {path === '/finance' && '财务管理'}
+                                {path === '/afterSale' && '售后管理'}
+                                {path === '/client' && '客户管理'}
+                                {path === '/storageIn' && '入库管理'}
+                                {path === '/storageOut' && '出库管理'}
+                                {path === '/inventory' && '库存管理'}
+                                {path === '/system' && '系统设置'}
+                            </Breadcrumb.Item>
+                            <Breadcrumb.Item className="loginOut" onClick={() => {
+                                storage.removeUser();
+                                navigate('/login')
+                            }}>退出登录</Breadcrumb.Item>
                         </Breadcrumb>
+                        {/* <bottom>退出登录</bottom> */}
                     </Header>
                     <Content style={{ margin: '0 16px' }}>
-                        <Routes>
-                            <Route  path='/home' element={<Home />} />
-                            <Route  path='/user' element={<User />} />
-                        </Routes>
-                        {/* <Outlet /> */}
+                        {path === '/user' && <User />}
+                        {path === '/order' && <Order />}
+                        {path === '/finance' && '财务管理'}
+                        {path === '/afterSale' && '售后管理'}
+                        {path === '/client' && '客户管理'}
+                        {path === '/storageIn' && '入库管理'}
+                        {path === '/storageOut' && '出库管理'}
+                        {path === '/inventory' && '库存管理'}
+                        {path === '/system' && '系统设置'}
                     </Content>
                     <Footer style={{ textAlign: 'center' }}>Ant Design ©2023 Created by Ant UED</Footer>
                 </Layout>

@@ -1,71 +1,71 @@
 .content {
-    position: relative;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(223, 225, 217, 0.7);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    color: black;
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(223, 225, 217, 0.7);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  color: black;
 }
 .login-box {
-    position: relative;
-    width: 40rem;
-    height: 400px;
-    background: rgb(223, 224, 209);
-    backdrop-filter: blur(10px);
-    border-radius: 10px;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-h1 {
+  position: relative;
+  width: 40rem;
+  height: 400px;
+  background: rgb(223, 224, 209);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  h1 {
     color:#000;
     margin: 50px 0 10px 0;
     font-size: 36px;
-}
-.output-form {
+  }
+  .output-form {
     margin-top: 20px;
     width: 300px;
     height: 40px;
     display: flex;
-    }
+  }
 }
 .register {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    color: #000;
-    height: 30px;
-    opacity: .7;
-    border-radius: 5px;
-    background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #000;
+  height: 30px;
+  opacity: .7;
+  border-radius: 5px;
+  background-color: #fff;
 }
 .block {
-    position: absolute;
-    top: 5%;
-    left: 5%;
-    cursor: pointer;
-    color: rgb(15, 15, 15);
-    opacity: .7;
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  cursor: pointer;
+  color: #000;
+  opacity: .7;
 }
 /* 取消 Input 组件选中状态的背景色 */
 .ant-input:not([disabled]):hover, .ant-input:not([disabled]):focus, .ant-input-affix-wrapper:hover .ant-input:not([disabled]), .ant-input-affix-wrapper:focus .ant-input:not([disabled]) {
-    border-color: #d9d9d9 !important;
-    box-shadow: none !important;
+  border-color: #d9d9d9 !important;
+  box-shadow: none !important;
 }
 /* .content::before {
-    position: absolute;
-    content: "";
-    display: block;
-    width: 300%;
-    height: 100%;
-    background-image: linear-gradient(to bottom right,rgb(25,0,255),rgb(111,0,255),rgb(242,0,250));
-    filter: blur(4px);
-    animation: bg-anim 3s alternate infinite linear;
+  position: absolute;
+  content: "";
+  display: block;
+  width: 300%;
+  height: 100%;
+  background-image: linear-gradient(to bottom right,rgb(25,0,255),rgb(111,0,255),rgb(242,0,250));
+  filter: blur(4px);
+  animation: bg-anim 3s alternate infinite linear;
 } */
 
 @keyframes bg-anim {

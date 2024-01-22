@@ -3,5 +3,6 @@
  */
 
 export default {
-  user: {} // 保存当前登录的用户信息
+  user: {}, // 保存当前登录的用户信息
+  path: '/user', // 点击的路由url
 }

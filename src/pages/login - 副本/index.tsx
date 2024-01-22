@@ -4,7 +4,7 @@ import './index.css';
 import { reqAddUser, reqLogin } from '../../api/login';
 import memory from '../../util/memory';
 import storage from '../../util/storage';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
     const [isLogin, setIsLogin] = useState(true);
@@ -14,28 +14,20 @@ const Login = () => {
     * @param {*} values
     */
     const onFinish = async (values: any) => {
-        const { username, password } = values
+        const { username, password } = values;
         if (isLogin) {
             const result = await reqLogin(username, password)
-            console.log(result)
-            if (result.status === 400) {
-                message.error(result.msg);
-                return;
-            } else if (result.status === 500) {
-                message.error(result.msg)
-            } else {
-                try {
-                    message.success(`${username}欢迎回来!`)
-                    //保存user
-                    const user = result.data
-                    memory.user = user
-                    storage.saveUser(user) // 存储到local里面
-                    // 跳转到admin管理界面，不需要回退到登录
-                    // props.history.replace('/')
-                    navigate('/')
-                } catch (error) {
-                    message.error('登录失败，请重新登录')
-                }
+            try {
+                message.success(`${username}欢迎回来!`)
+                //保存user
+                const user = result.data
+                memory.user = user
+                storage.saveUser(user) // 存储到local里面
+                // 跳转到admin管理界面，不需要回退到登录
+                // props.history.replace('/')
+                navigate('/')
+            } catch (error) {
+                message.error('登录失败，请重新登录')
             }
         } else {
             await reqAddUser(username, password, values.iphone);

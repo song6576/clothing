@@ -4,7 +4,9 @@ import * as Icons from '@ant-design/icons'
 import { Link, useNavigate } from 'react-router-dom';
 import menuList from '../../config/menuConfig';
 import storage from "../../util/storage";
+import memory from "../../util/memory";
 import { reqUsers } from '../../api/login';
+import bus from '../../util/bus';
 
 const { SubMenu } = Menu;
 
@@ -14,14 +16,14 @@ interface IProps {
 const LeftNav = (props: IProps) => {
     const navigate = useNavigate();
     const [userList, setUserList] = useState({});
-    const [userListRole,setUserListRole ] = useState("");
+    const [userListRole, setUserListRole] = useState("");
 
     const getUserList = async () => {
-        const result = await reqUsers()
+        const result = await reqUsers();
         console.log("🚀 ~ file: index.tsx:21 ~ getUserList ~ result:", result)
         if (result.data.status === 200) {
             const userList = result.data.data
-            const userListRole = userList.map((item:any) => {
+            const userListRole = userList.map((item: any) => {
                 return item.role
             })
             setUserList(userList);
@@ -29,13 +31,14 @@ const LeftNav = (props: IProps) => {
         }
     }
     const getMenuList = (menuList: any) => {
-        return menuList.filter((r: any) => r.role.includes(storage.getRole())).map((item:any) => {
+        return menuList.filter((r: any) => r.role.includes(storage.getRole())).map((item: any) => {
             // @ts-ignore
             const { render: IconRender } = Icons[item.icon] || { render: () => { } }
             if (!item.children) {
                 return (
                     <Menu.Item key={item.key} icon={IconRender()} >
-                        <Link to={item.key}>{item.title}</Link>
+                        {/* <Link to={item.key}>{item.title}</Link> */}
+                        {item.title}
                     </Menu.Item>
                 )
             } else {
@@ -48,9 +51,14 @@ const LeftNav = (props: IProps) => {
         })
     }
 
+    const handleSelect = ({ item, key, keyPath, selectedKeys, domEvent }: any) => {
+        memory.path = key;
+        bus.$emit('path', key)
+    };
+
     useEffect(() => {
         getUserList();
-    },[])
+    }, [])
 
     return <div>
         <div style={{ textAlign: 'center', margin: '30px 0' }}>
@@ -58,11 +66,11 @@ const LeftNav = (props: IProps) => {
         </div>
         <Menu
             style={{ width: 200 }}
-            defaultSelectedKeys={['/home']}
-            defaultOpenKeys={['/home']}
+            defaultSelectedKeys={['/user']}
+            defaultOpenKeys={['/user']}
             mode="inline"
             theme='dark'
-            // onSelect={handleSelect}
+            onSelect={handleSelect}
         >
             {
                 getMenuList(menuList)
