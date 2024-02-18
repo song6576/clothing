@@ -1,6 +1,6 @@
 import { Button, Form, Input, message } from 'antd';
 import { useState } from 'react';
-import './index.less';
+import './index.sass';
 import { reqAddUser, reqLogin } from '../../api/login';
 import memory from '../../util/memory';
 import storage from '../../util/storage';
