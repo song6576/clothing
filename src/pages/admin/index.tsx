@@ -19,6 +19,7 @@ import User from "../user";
 import Order from '../order';
 import bus from "../../util/bus";
 import Refund from "../order/refund";
+import Finance from "../finance";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -113,7 +114,7 @@ const Admin = () => {
                         {path === 0 && <User />}
                         {path === 1 && <Order />}
                         {path === 2 && <Refund />}
-                        {path === 3 && '财务管理'}
+                        {path === 3 && <Finance />}
                         {path === 4 && '售后管理'}
                         {path === 5 && '客户管理'}
                         {path === 6 && '入库管理'}
