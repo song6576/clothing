@@ -1,22 +1,24 @@
 import memory from "../../util/memory";
 import storage from "../../util/storage";
-import { useNavigate, Routes, Route, Outlet } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import {
+    AppstoreOutlined,
+    ContainerOutlined,
+    DesktopOutlined,
+    MailOutlined,
+    MenuFoldOutlined,
+    MenuUnfoldOutlined,
+    PieChartOutlined,
+} from '@ant-design/icons';
 import './index.css';
 import { useEffect, useState } from "react";
-import {
-    DesktopOutlined,
-    FileOutlined,
-    PieChartOutlined,
-    TeamOutlined,
-    UserOutlined,
-} from '@ant-design/icons';
 import React from "react";
 import { Breadcrumb, Layout, Menu, MenuProps, theme } from 'antd';
 import LeftNav from "../../component/left-nav";
-import Home from "../Home";
 import User from "../user";
 import Order from '../order';
 import bus from "../../util/bus";
+import Refund from "../order/refund";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -27,66 +29,69 @@ function getItem(
     key: React.Key,
     icon?: React.ReactNode,
     children?: MenuItem[],
+    type?: 'group',
 ): MenuItem {
     return {
         key,
         icon,
         children,
         label,
+        type,
     } as MenuItem;
 }
 
 const items: MenuItem[] = [
-    getItem('Option 1', 'Option 1', <PieChartOutlined />),
-    getItem('Option 2', '2', <DesktopOutlined />),
-    getItem('User', 'sub1', <UserOutlined />, [
-        getItem('Tom', '3'),
-        getItem('Bill', '4'),
-        getItem('Alex', '5'),
+    getItem('角色管理', 0, <PieChartOutlined  />),
+    getItem('订单管理', '', <DesktopOutlined />, [
+        getItem('订单列表', 1),
+        getItem('退款订单', 2),
     ]),
-    getItem('Team', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
-    getItem('Files', '9', <FileOutlined />),
+    getItem('财务管理', 3, <ContainerOutlined />),
+    getItem('售后管理', 4, <MailOutlined />),
+    getItem('客户管理', 5, <MailOutlined />),
+    getItem('入库管理', 6, <MailOutlined />),
+    getItem('出库管理', 7, <MailOutlined />),
+    getItem('库存管理', 8, <MailOutlined />),
+    getItem('系统设置', 9, <MailOutlined />),
 ];
 
 const Admin = () => {
     const user: any = memory.user;
     const navigate = useNavigate();
-    const [collapsed, setCollapsed] = useState(false);
-    const [path, setPath] = useState('/user'); // 存储路由
+    const [path, setPath]: any = useState(0); // 存储路由
     const {
         token: { colorBgContainer, borderRadiusLG },
     } = theme.useToken();
     // 路由重定向到登陆页面
     useEffect(() => {
         if (!user) return navigate('/login');
-        bus.$on('path', (path: any) => {
-            setPath(path)
-        })
     }, [])
 
-    const menuClick = (e: any) => {
-        console.log("🚀 ~ file: index.tsx:59 ~ menuClick ~ a,b,c:", e)
-    }
+    const handleSelect = ({ item, key, keyPath, selectedKeys, domEvent }: any) => {
+        setPath(Number(key))
+    };
+    console.log(path)
     return (
         <React.Fragment>
             <Layout style={{ minHeight: '100vh' }}>
                 <Sider>
-                    <LeftNav />
-                    {/* <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} /> */}
+                    {/* <LeftNav /> */}
+                    <Menu theme="dark" defaultSelectedKeys={['0']} mode="inline" items={items} onClick={handleSelect} />
                 </Sider>
                 <Layout>
                     <Header style={{ padding: 0, background: colorBgContainer }}>
                         <Breadcrumb style={{ margin: '16px 15px' }}>
                             <Breadcrumb.Item>
-                                {path === '/user' && '角色管理'}
-                                {path === '/order' && '订单管理'}
-                                {path === '/finance' && '财务管理'}
-                                {path === '/afterSale' && '售后管理'}
-                                {path === '/client' && '客户管理'}
-                                {path === '/storageIn' && '入库管理'}
-                                {path === '/storageOut' && '出库管理'}
-                                {path === '/inventory' && '库存管理'}
-                                {path === '/system' && '系统设置'}
+                                {path === 0 && '角色管理'}
+                                {path === 1 && '订单管理'}
+                                {path === 2 && '退款订单'}
+                                {path === 3 && '财务管理'}
+                                {path === 4 && '售后管理'}
+                                {path === 5 && '客户管理'}
+                                {path === 6 && '入库管理'}
+                                {path === 7 && '出库管理'}
+                                {path === 8 && '库存管理'}
+                                {path === 9 && '系统设置'}
                             </Breadcrumb.Item>
                             <Breadcrumb.Item className="loginOut" onClick={() => {
                                 storage.removeUser();
@@ -96,7 +101,7 @@ const Admin = () => {
                         {/* <bottom>退出登录</bottom> */}
                     </Header>
                     <Content style={{ margin: '0 16px' }}>
-                        {path === '/user' && <User />}
+                        {/* {path === '/user' && <User />}
                         {path === '/order' && <Order />}
                         {path === '/finance' && '财务管理'}
                         {path === '/afterSale' && '售后管理'}
@@ -104,7 +109,17 @@ const Admin = () => {
                         {path === '/storageIn' && '入库管理'}
                         {path === '/storageOut' && '出库管理'}
                         {path === '/inventory' && '库存管理'}
-                        {path === '/system' && '系统设置'}
+                        {path === '/system' && '系统设置'} */}
+                        {path === 0 && <User />}
+                        {path === 1 && <Order />}
+                        {path === 2 && <Refund />}
+                        {path === 3 && '财务管理'}
+                        {path === 4 && '售后管理'}
+                        {path === 5 && '客户管理'}
+                        {path === 6 && '入库管理'}
+                        {path === 7 && '出库管理'}
+                        {path === 8 && '库存管理'}
+                        {path === 9 && '系统设置'}
                     </Content>
                     <Footer style={{ textAlign: 'center' }}>Ant Design ©2023 Created by Ant UED</Footer>
                 </Layout>

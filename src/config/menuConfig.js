@@ -11,7 +11,19 @@ const menuList = [
         title: '订单管理',
         key: '/order',
         icon: 'PieChartOutlined',
-        role: ['管理员']
+        role: ['管理员'],
+        children: [
+            {
+                title: '订单列表',
+                key: '/supplies/materialInformation',
+                role: ['管理员']
+            },
+            {
+                title: '退款订单',
+                key: '/supplies/suppliesAdmin',
+                role: ['管理员']
+            }
+        ]
     },
     {
         title: '财务管理',

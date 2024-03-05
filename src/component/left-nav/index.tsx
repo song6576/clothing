@@ -31,12 +31,12 @@ const LeftNav = (props: IProps) => {
         }
     }
     const getMenuList = (menuList: any) => {
-        return menuList.filter((r: any) => r.role.includes(storage.getRole())).map((item: any) => {
+        return menuList.filter((r: any) => r.role.includes(storage.getRole())).map((item: any,index:number) => {
             // @ts-ignore
             const { render: IconRender } = Icons[item.icon] || { render: () => { } }
             if (!item.children) {
                 return (
-                    <Menu.Item key={item.key} icon={IconRender()} >
+                    <Menu.Item key={index} icon={IconRender()}>
                         {/* <Link to={item.key}>{item.title}</Link> */}
                         {item.title}
                     </Menu.Item>
@@ -53,7 +53,8 @@ const LeftNav = (props: IProps) => {
 
     const handleSelect = ({ item, key, keyPath, selectedKeys, domEvent }: any) => {
         memory.path = key;
-        bus.$emit('path', key)
+        console.log(item, key, keyPath, selectedKeys, domEvent)
+        bus.$emit('path', Number(key))
     };
 
     useEffect(() => {
@@ -66,11 +67,11 @@ const LeftNav = (props: IProps) => {
         </div>
         <Menu
             style={{ width: 200 }}
-            defaultSelectedKeys={['/user']}
-            defaultOpenKeys={['/user']}
+            defaultSelectedKeys={['0']}
+            defaultOpenKeys={['0']}
             mode="inline"
             theme='dark'
-            onSelect={handleSelect}
+            onClick={handleSelect}
         >
             {
                 getMenuList(menuList)

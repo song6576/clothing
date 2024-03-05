@@ -99,12 +99,34 @@ export const reqAddUser = (username: any, password: any, iphone: number) => axio
 /**
  * 删除系统用户
  */
-export const reqdelUser = (id: any) => axios(BASE + `/delUser?id=${id}`)
+export const reqdelUser = (id: any) => {
+    const url = `${BASE}/delUser?id=${id}`;
+    return axios.post(url).then(response => {
+        // 处理请求成功的响应
+        return response.data;
+    }).catch(error => {
+        // 处理请求失败的错误
+        // 可以使用 message.error() 方法展示错误消息
+        message.error('请求失败，请重试！');
+        throw error;
+    });
+}
 
 /**
  * 修改系统用户
  */
-export const reqUpdataUser = (id: any, username: any, password: any, role: string, iphone: number) => axios(BASE + `/updateUser?id=${id}&username=${username}&password=${password}&role=${role}&iphone=${iphone}`)
+// export const reqUpdataUser = (id: any, username: any, password: any, role: string, iphone: number) => axios(BASE + `/updateUser?id=${id}&username=${username}&password=${password}&role=${role}&iphone=${iphone}`)
+export const reqUpdataUser = (id: any, username: any, password: any, role: string, iphone: number) => {
+    const url = `${BASE}/updateUser?id=${id}&username=${username}&password=${password}&role=${role}&iphone=${iphone}`;
+    return axios.post(url).then(response => {
+        return response.data;
+    }).catch(error => {
+        // 处理请求失败的错误
+        // 可以使用 message.error() 方法展示错误消息
+        message.error('请求失败，请重试！');
+        throw error;
+    });
+}
 
 /**
 * 查询所有居民信息模块
